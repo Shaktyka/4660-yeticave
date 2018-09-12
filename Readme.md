@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Елена Петренко](https://up.htmlacademy.ru/php/6/user/4660).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Зубов](https://htmlacademy.ru/profile/serj).
 
 ---
 
