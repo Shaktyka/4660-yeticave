@@ -46,6 +46,22 @@ $adds = [
         'url' => 'img/lot-6.jpg'
     ]
 ];
+
+$symbol = '<b class="rub">р</b>';
+
+function format_price ($price, $symbol) {
+    $end_price = null;
+    $price = ceil($price);
+    
+    if ($price > 1000) {
+        $price = number_format($price, 0, '', ' ');
+    }
+    
+    $end_price = $price . ' ' . $symbol;
+    
+    return $end_price;
+};
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -116,7 +132,7 @@ $adds = [
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
-            <?php foreach($adds as $key => $value): ?>
+            <?php foreach($adds as $value): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?=$value['url']; ?>" width="350" height="260" alt="<?=$value['title']; ?>">
@@ -127,7 +143,7 @@ $adds = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$value['price']; ?></span>
-                            <span class="lot__cost"><?=$value['price']; ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=format_price($value['price'], $symbol); ?></span>
                         </div>
                         <div class="lot__timer timer">
 
