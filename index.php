@@ -47,9 +47,11 @@ $adds = [
     ]
 ];
 
-$symbol = '<b class="rub">р</b>';
+//$symbol = '<b class="rub">р</b>';
 
-function format_price ($price, $symbol) {
+function format_price ($price) {
+    $symbol = '&#8381;'; // символ рубля
+    
     $end_price = null;
     $price = ceil($price);
     
@@ -143,7 +145,7 @@ function format_price ($price, $symbol) {
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$value['price']; ?></span>
-                            <span class="lot__cost"><?=format_price($value['price'], $symbol); ?></span>
+                            <span class="lot__cost"><?=format_price($value['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
 
