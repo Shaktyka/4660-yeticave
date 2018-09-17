@@ -47,8 +47,7 @@ $adds = [
     ]
 ];
 
-//$symbol = '<b class="rub">р</b>';
-
+// Форматирование вывода цены
 function format_price ($price) {
     $symbol = '&#8381;'; // символ рубля
     
