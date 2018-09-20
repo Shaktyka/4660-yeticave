@@ -1,24 +1,7 @@
 <?php
-
-$is_auth = rand(0, 1);
-
-// Форматирование вывода цены
-function format_price ($price) {
-    $symbol = '&#8381;'; // символ рубля
-    
-    $end_price = null;
-    $price = ceil($price);
-    
-    if ($price > 1000) {
-        $price = number_format($price, 0, '', ' ');
-    }
-    
-    $end_price = $price . ' ' . $symbol;
-    
-    return $end_price;
-};
-
+    $is_auth = rand(0, 1);
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -49,7 +32,7 @@ function format_price ($price) {
             <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
           </div>
           <div class="user-menu__logged">
-            <p><?=$user_name;?></p>
+            <p><?= $user_name; ?></p>
           </div>
         <?php else: ?>
           <ul class="user-menu__list">
