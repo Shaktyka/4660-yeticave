@@ -34,7 +34,7 @@
                             <span class="lot__cost"><?= format_price(htmlspecialchars($ad['price'])); ?></span>
                         </div>
                         <div class="lot__timer timer">
-
+                            <?= get_time(); ?>
                         </div>
                     </div>
                 </div>
@@ -42,4 +42,3 @@
         <?php endforeach; ?>
     </ul>
 </section>
-    
