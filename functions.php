@@ -16,6 +16,7 @@ function format_price ($price) {
     return $end_price;
 };
 
+// Подключение шаблонов
 function include_template($name, $data) {
     $name = 'templates/' . $name;
     $result = '';
@@ -31,6 +32,19 @@ function include_template($name, $data) {
     $result = ob_get_clean();
 
 return $result;
+};
+
+// Вывод оставшегося до полуночи времени (универсально)
+function get_time() {
+    
+    $cur_date = time(); // текущая дата
+    $tom_date = strtotime('Tomorrow'); // полночь завтрашнего дня
+    
+    $delta = $tom_date - $cur_date; // разница
+    
+    $date = gmdate('H:i', $delta); // форматируем дату
+    
+    return $date;
 };
 
 ?>
