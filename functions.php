@@ -1,7 +1,20 @@
 <?php
 
-$user_name = 'Елена';
-$user_avatar = 'img/user.jpg';
+// Форматирование вывода цены
+function format_price ($price) {
+    $symbol = '&#8381;'; // символ рубля
+    
+    $end_price = null;
+    $price = ceil($price);
+    
+    if ($price > 1000) {
+        $price = number_format($price, 0, '', ' ');
+    }
+    
+    $end_price = $price . ' ' . $symbol;
+    
+    return $end_price;
+};
 
 function include_template($name, $data) {
     $name = 'templates/' . $name;
@@ -19,11 +32,5 @@ function include_template($name, $data) {
 
 return $result;
 };
-
-$page_content = include_template('index.php', ['categories' => $categories, 'adds' => $adds]);
-
-$layout_content = include_template('layout.php', ['content' => $page_content, 'user_name' => $user_name, 'title' => 'Главная', 'categories' => $categories]);
-
-print($layout_content);
 
 ?>
