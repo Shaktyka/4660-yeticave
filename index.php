@@ -1,6 +1,6 @@
 <?php require('functions.php'); 
 
-require('data.php');
+require ('data.php');
 
 $page_content = include_template('index.php', ['categories' => $categories, 'adds' => $adds]);
 
