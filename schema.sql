@@ -1,6 +1,6 @@
 CREATE DATABASE yeticave
     DEFAULT CHARACTER SET utf8
-    DEFAULT COLLATE ut8_unicode_ci;
+    DEFAULT COLLATE utf8_unicode_ci;
   
 USE yeticave;
 
