@@ -95,3 +95,13 @@ FROM lots l
 JOIN bets b
 ON l.lot_id = b.lot_id
 WHERE bet_date > '2018-09-26 00:00:00';
+
+/* Или так: */
+
+SELECT l.lot_id, bet_date, amount 
+FROM lots l
+JOIN bets b
+ON l.lot_id = b.lot_id
+ORDER BY bet_date DESC
+LIMIT 2;
+
