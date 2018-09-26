@@ -13,7 +13,7 @@ VALUES ('Инструменты');
 INSERT INTO categories (category)
 VALUES ('Разное');
 
-/* Вставка данных двух пользователей */
+/* Вставка данных пользователей */
 
 INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
 VALUES ('ignat.v@gmail.com', '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', 'Игнат', 'Skype: ignat_boss', 'img/avatar.jpg', '2018-09-24 10:20:05');
@@ -27,7 +27,7 @@ VALUES ('anton_ant@bk.ru', 'o41IEdMHkYoSVa$2y$10$rnJ7rxmIe63ABubWtSjUhwgggtxbHQs
 /* Вставка списка объявлениям */
 
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
-VALUES (1, '2014 Rossignol District Snowboard', 1, 'The Rossignol District Amptek Snowboard is an user-friendly freestyle board for the aspiring park and pipe riders. Rossignol combines with slight camber for a forgiving yet stable ride. A softer symmetrical flex makes the District an easy-to-ride board.', 'img/lot-1.jpg', '2018-09-24 11:20:00', 10999, '2018-09-25 11:20:00', 2000);
+VALUES (1, '2014 Rossignol District Snowboard', 1, 'The Rossignol District Amptek Snowboard is an user-friendly freestyle board for the aspiring park and pipe riders. Rossignol combines with slight camber for a forgiving yet stable ride. A softer symmetrical flex makes the District an easy-to-ride board.', 'img/lot-1.jpg', '2018-09-24 11:20:00', 10999, '2018-09-30 11:20:00', 2000);
 
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
 VALUES (1, 'DC Ply Mens 2016/2017 Snowboard', 1, 'As park-builders continue to add menacing new features, DC continues to evolve their boards to match the increasing technicality of terrain parks. The DC Ply Snowboard is concrete proof. With their Tear The Roof Off construction, this board does everyything to stay light and controllable in the air.', 'img/lot-2.jpg', '2018-09-24 13:20:00', 159999, '2018-09-25 13:20:00', 3000);
@@ -36,7 +36,7 @@ INSERT INTO lots (user_id, title, category_id, description, img_path, start_date
 VALUES (2, 'Крепления Union Contact Pro 2015 года размер L/XL', 2, 'Почти новые. Так и не научилась пользоваться :(((', 'img/lot-3.jpg', '2018-09-25 14:15:00', 8000, '2018-09-26 14:15:00', 500);
 
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
-VALUES (2, 'Ботинки для сноуборда DC Mutiny Charocal', 3, 'Совсем новые! Отличные ботинки, рекомендую всем!!!', 'img/lot-4.jpg', '2018-09-25 15:15:00', 10999, '2018-09-26 15:15:00', 1500);
+VALUES (2, 'Ботинки для сноуборда DC Mutiny Charocal', 3, 'Совсем новые! Отличные ботинки, рекомендую всем!!!', 'img/lot-4.jpg', '2018-09-25 15:15:00', 10999, '2018-09-30 15:15:00', 1500);
 
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
 VALUES (1, 'Куртка для сноуборда DC Mutiny Charocal', 4, 'Бывала во многих передрягах. С автографом снежного барса и следами неудачной встречи нового года.', 'img/lot-5.jpg', '2018-09-26 09:10:00', 7500, '2018-09-27 09:10:00', 200);
@@ -44,7 +44,7 @@ VALUES (1, 'Куртка для сноуборда DC Mutiny Charocal', 4, 'Бы
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
 VALUES (1, 'Маска Oakley Can', 6, 'Увеличенный объем линзы и низкий профиль оправы маски Canopy способствуют широкому углу обзора, а специальное противотуманное покрытие поможет ориентироваться в условиях плохой видимости.', 'img/lot-6.jpg', '2018-09-26 11:30:00', 5400, '2018-09-27 11:30:00', 300);
 
-/* Вставка двух ставок по объявлению */
+/* Вставка списка ставок по объявлениям */
 
 INSERT INTO bets (user_id, lot_id, bet_date, amount)
 VALUES (2, 1, '2018-09-25 06:35:05', 12999);
@@ -53,34 +53,34 @@ INSERT INTO bets (user_id, lot_id, bet_date, amount)
 VALUES (1, 4, '2018-09-25 22:03:35', 12499);
 
 INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (3, 1, '2018-09-26 15:15:05', 12999);
+VALUES (3, 1, '2018-09-27 15:15:05', 14999);
 
 INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (3, 4, '2018-09-26 15:20:45', 12499);
+VALUES (3, 4, '2018-09-27 15:20:45', 13999);
 
 /* Получаем все категории */
 
 SELECT * FROM categories;
 
-/* Показываем новые, открытые лоты (название, стартовая цена, ссылка на изображение, цена, количество ставок, название категории). */
+/* Новые, открытые лоты (название, стартовая цена, ссылка на изображение, цена, количество ставок, название категории). */
 
+/*SELECT title, start_price, img_path, category FROM lots; */
 
+/* Лот и его категория по id лота. */
 
-/* Показываем лот и его категорию по id лота. */
-
-/* Если нужно только название лота и котегории */
+/* 1) Если нужно только название лота и котегории */
 SELECT title, category FROM lots
 JOIN categories
 ON category_id = cat_id
 WHERE lot_id = 1;
 
-/* Если нужны более подробные данные по лоту и его категория */
+/* 2) Если нужны более подробные данные по лоту и его категория */
 
 SELECT title, category, description, img_path, start_date, end_date, start_price, bet_step 
-FROM lots l
-JOIN categories c
-ON l.category_id = c.cat_id
-WHERE l.lot_id = 1;
+FROM lots
+JOIN categories
+ON category_id = cat_id
+WHERE lot_id = 1;
 
 /* Обновление названия лота по его id; */
 
@@ -89,3 +89,9 @@ SET title ='Маска Oakley Canopy'
 WHERE lot_id = 6;
 
 /* Список самых свежих ставок для лота по его идентификатору; */
+
+SELECT l.lot_id, bet_date, amount 
+FROM lots l
+JOIN bets b
+ON l.lot_id = b.lot_id
+WHERE bet_date > '2018-09-26 00:00:00';
