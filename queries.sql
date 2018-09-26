@@ -21,6 +21,9 @@ VALUES ('ignat.v@gmail.com', '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00
 INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
 VALUES ('kitty_93@li.ru', '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', 'Леночка', 'ВКонтакте https://vk.com/lenochka', 'img/lena.jpg', '2018-09-25 12:55:55');
 
+INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
+VALUES ('anton_ant@bk.ru', 'o41IEdMHkYoSVa$2y$10$rnJ7rxmIe63ABubWtSjUhwgggtxbHQs0AS0hgnO', 'Anthony', 'Пиши в слак: anthony_anthony', '', '2018-09-26 15:00:25');
+
 /* Вставка списка объявлениям */
 
 INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step)
@@ -49,13 +52,35 @@ VALUES (2, 1, '2018-09-25 06:35:05', 12999);
 INSERT INTO bets (user_id, lot_id, bet_date, amount)
 VALUES (1, 4, '2018-09-25 22:03:35', 12499);
 
+INSERT INTO bets (user_id, lot_id, bet_date, amount)
+VALUES (3, 1, '2018-09-26 15:15:05', 12999);
+
+INSERT INTO bets (user_id, lot_id, bet_date, amount)
+VALUES (3, 4, '2018-09-26 15:20:45', 12499);
+
 /* Получаем все категории */
 
 SELECT * FROM categories;
 
-/* получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, количество ставок, название категории */
+/* Показываем новые, открытые лоты (название, стартовая цена, ссылка на изображение, цена, количество ставок, название категории). */
 
-/* показать лот по его id. Получите также название категории, к которой принадлежит лот */
+
+
+/* Показываем лот и его категорию по id лота. */
+
+/* Если нужно только название лота и котегории */
+SELECT title, category FROM lots
+JOIN categories
+ON category_id = cat_id
+WHERE lot_id = 1;
+
+/* Если нужны более подробные данные по лоту и его категория */
+
+SELECT title, category, description, img_path, start_date, end_date, start_price, bet_step 
+FROM lots l
+JOIN categories c
+ON l.category_id = c.cat_id
+WHERE l.lot_id = 1;
 
 /* Обновление названия лота по его id; */
 
@@ -63,4 +88,4 @@ UPDATE lots
 SET title ='Маска Oakley Canopy'
 WHERE lot_id = 6;
 
-/* получить список самых свежих ставок для лота по его идентификатору; */
+/* Список самых свежих ставок для лота по его идентификатору; */
