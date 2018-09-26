@@ -1,17 +1,6 @@
 /* Вставка списка категорий */
 
-INSERT INTO categories (category)
-VALUES ('Доски и лыжи');
-INSERT INTO categories (category)
-VALUES ('Крепления');
-INSERT INTO categories (category)
-VALUES ('Ботинки');
-INSERT INTO categories (category)
-VALUES ('Одежда');
-INSERT INTO categories (category)
-VALUES ('Инструменты');
-INSERT INTO categories (category)
-VALUES ('Разное');
+INSERT INTO categories (category) VALUES ('Доски и лыжи'), ('Крепления'), ('Ботинки'), ('Одежда'), ('Инструменты'), ('Разное');
 
 /* Вставка данных пользователей */
 
@@ -64,13 +53,14 @@ SELECT * FROM categories;
 
 /* Новые, открытые лоты (название, стартовая цена, ссылка на изображение, цена, количество ставок, название категории). */
 
-SELECT title, start_price, img_path, category, COUNT(amount) AS bets, MAX(amount) AS max_price
+SELECT title, start_price, img_path, category, end_date, COUNT(amount) AS bets, MAX(amount)
 FROM lots l
 JOIN categories
 ON category_id = cat_id
 JOIN bets b
 ON l.lot_id = b.lot_id
-WHERE l.lot_id = 1;
+GROUP BY b.lot_id
+ORDER BY end_date DESC;
 
 /* Лот и его категория по id лота. */
 
@@ -100,14 +90,6 @@ SELECT l.lot_id, bet_date, amount
 FROM lots l
 JOIN bets b
 ON l.lot_id = b.lot_id
-WHERE bet_date > '2018-09-26 00:00:00';
-
-/* Или так: */
-
-SELECT l.lot_id, bet_date, amount 
-FROM lots l
-JOIN bets b
-ON l.lot_id = b.lot_id
 ORDER BY bet_date DESC
-LIMIT 2;
+LIMIT 2; /* Или любое другое число */
 
