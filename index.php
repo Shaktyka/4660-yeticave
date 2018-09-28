@@ -1,6 +1,6 @@
 <?php
-$connect = mysqli_connect('localhost', 'root', '', 'yeticave');
-mysqli_set_charset($connect, 'utf8');
+$connect = mysqli_connect("localhost", "root", "", "yeticave");
+mysqli_set_charset($connect, "utf8");
  
 if (!$connect){
     print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
@@ -9,7 +9,12 @@ if (!$connect){
     $query = 'SELECT * FROM categories';
     $result = mysqli_query($connect, $query);
     
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (!$result) {
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+    } else {
+        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 }
 
 require('functions.php'); 
