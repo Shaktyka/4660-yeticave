@@ -53,7 +53,7 @@ SELECT * FROM categories;
 
 /* Новые, открытые лоты (название, стартовая цена, ссылка на изображение, цена, количество ставок, название категории). */
 
-SELECT title, start_price, img_path, category, end_date, COUNT(amount) AS bets, MAX(amount)
+SELECT title, start_price, img_path, category, end_date, COUNT(amount) AS bets, MAX(amount) as cur_price
 FROM lots l
 JOIN categories
 ON category_id = cat_id
