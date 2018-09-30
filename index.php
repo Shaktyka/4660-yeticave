@@ -29,7 +29,7 @@ if (!$connect){
     }
     
     // Запрашиваем список последних лотов
-    $query = 'SELECT title, start_price, img_path, category, end_date, MAX(amount) as cur_price FROM lots l JOIN categories ON category_id = cat_id JOIN bets b ON l.lot_id = b.lot_id GROUP BY b.lot_id ORDER BY end_date DESC;';
+    $query = 'SELECT l.lot_id, title, start_price, img_path, category, end_date, MAX(amount) as cur_price FROM lots l JOIN categories ON category_id = cat_id JOIN bets b ON l.lot_id = b.lot_id GROUP BY b.lot_id ORDER BY end_date DESC;';
     $result = mysqli_query($connect, $query);
         
     if (!$result) {
