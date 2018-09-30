@@ -2,6 +2,7 @@
 
 $user_name = 'Елена';
 $user_avatar = 'img/user.jpg';
+$title = 'YetiCave';
 
 // ставки пользователей, которыми надо заполнить таблицу
 $bets = [
