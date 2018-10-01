@@ -4,14 +4,10 @@ INSERT INTO categories (category) VALUES ('Доски и лыжи'), ('Креп�
 
 /* Вставка данных пользователей */
 
-INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
-VALUES ('ignat.v@gmail.com', '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', 'Игнат', 'Skype: ignat_boss', 'img/avatar.jpg', '2018-09-24 10:20:05');
-
-INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
-VALUES ('kitty_93@li.ru', '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', 'Леночка', 'ВКонтакте https://vk.com/lenochka', 'img/lena.jpg', '2018-09-25 12:55:55');
-
-INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date)
-VALUES ('anton_ant@bk.ru', 'o41IEdMHkYoSVa$2y$10$rnJ7rxmIe63ABubWtSjUhwgggtxbHQs0AS0hgnO', 'Anthony', 'Пиши в слак: anthony_anthony', '', '2018-09-26 15:00:25');
+INSERT INTO users (email, user_pass, user_name, contacts, avatar, reg_date) VALUES 
+('ignat.v@gmail.com', 'ignatignat', 'Игнат', 'Skype: ignat_boss', 'img/avatar.jpg', '2018-09-24 10:20:05'),
+('kitty_93@li.ru', 'lenochkakitty', 'Леночка', 'ВКонтакте https://vk.com/lenochka', 'img/lena.jpg', '2018-09-25 12:55:55'),
+('anton_ant@bk.ru', 'anthonchik', 'Anthony', 'Пиши в слак: anthony_anthony', '', '2018-09-26 15:00:25');
 
 /* Вставка списка объявлениям */
 
@@ -35,17 +31,11 @@ VALUES (1, 'Маска Oakley Can', 6, 'Увеличенный объем лин
 
 /* Вставка списка ставок по объявлениям */
 
-INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (2, 1, '2018-09-25 06:35:05', 12999);
-
-INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (1, 4, '2018-09-25 22:03:35', 12499);
-
-INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (3, 1, '2018-09-27 15:15:05', 14999);
-
-INSERT INTO bets (user_id, lot_id, bet_date, amount)
-VALUES (3, 4, '2018-09-27 15:20:45', 13999);
+INSERT INTO bets (user_id, lot_id, bet_date, amount) VALUES 
+(2, 1, '2018-09-25 06:35:05', 12999),
+(1, 4, '2018-09-25 22:03:35', 12499),
+(3, 1, '2018-09-27 15:15:05', 14999),
+(3, 4, '2018-09-27 15:20:45', 13999);
 
 /* Получаем все категории */
 
