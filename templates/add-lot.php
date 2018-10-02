@@ -12,7 +12,8 @@
         <?php endwhile; ?>
       </ul>
     </nav>
-    <form class="form form--add-lot container form--invalid" action="https://echo.htmlacademy.ru" method="post"> <!-- form--invalid -->
+<!--  https://echo.htmlacademy.ru  -->
+    <form class="form form--add-lot container form--invalid" action="/add.php" method="post"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
         <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
@@ -48,7 +49,7 @@
           </div>
         </div>
         <div class="form__input-file">
-          <input class="visually-hidden" type="file" id="photo2" value="">
+          <input class="visually-hidden" name="file" type="file" id="photo2" value="">
           <label for="photo2">
             <span>+ Добавить</span>
           </label>
