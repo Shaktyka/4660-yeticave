@@ -1,20 +1,28 @@
 <?php
 
-// Форматирование вывода цены
-function format_price ($price) {
-    $symbol = '&#8381;'; // символ рубля
+// Подключение к БД
+function db_connect() {
     
-    $end_price = null;
-    $price = ceil($price);
+    $db_params = [
+        'host' => 'localhost',
+        'user' => 'root',
+        'pass' => '',
+        'database' => 'yeticave'
+    ];
     
-    if ($price > 1000) {
-        $price = number_format($price, 0, '', ' ');
+    $connect = mysqli_connect($db_params['host'], $db_params['user'], $db_params['pass'], $db_params['database']);
+    
+    mysqli_set_charset($connect, 'utf8'); // устанавливаем кодировку
+    
+    if (!$connect) {
+        
+        print('Ошибка: Не удалось подключиться к MySQL ' . mysqli_connect_error());
+        die();
     }
     
-    $end_price = $price . ' ' . $symbol;
-    
-    return $end_price;
+    return $connect;
 };
+
 
 // Подключение шаблонов
 function include_template($name, $data) {
@@ -34,7 +42,25 @@ function include_template($name, $data) {
 return $result;
 };
 
-// Вывод оставшегося до полуночи времени (универсально)
+
+// Форматирование вывода цены
+function format_price ($price) {
+    $symbol = '&#8381;'; // символ рубля
+    
+    $end_price = null;
+    $price = ceil($price);
+    
+    if ($price > 1000) {
+        $price = number_format($price, 0, '', ' ');
+    }
+    
+    $end_price = $price . ' ' . $symbol;
+    
+    return $end_price;
+};
+
+
+// Вывод оставшегося до полуночи времени
 function get_time() {
     
     $cur_date = time(); // текущая дата

@@ -3,15 +3,9 @@
 require_once('functions.php');
 require_once('data.php');
 
-$connect = mysqli_connect("localhost", "root", "", "yeticave");
-mysqli_set_charset($connect, "utf8");
+$connect = db_connect();
 
-if (!$connect){
-    
-    print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
-    die();
-    
-} else {
+if ($connect) {
     
     if (isset($_GET['id']) && $_GET['id'] == true) {
     
@@ -28,6 +22,11 @@ if (!$connect){
         $result = mysqli_query($connect, $query);
         $res_count = mysqli_num_rows($result);
         //print_r($res_count);
+        
+        if ($res_count < 1) {
+            http_response_code(404);
+            die();
+        }
     
         if (!$result) {
         
@@ -35,11 +34,6 @@ if (!$connect){
             print("Ошибка MySQL: " . $error);
             die();
         
-            } else if ($res_count == 0) {
-
-                http_response_code(404);
-                $page_content = 'Ошибка 404: страница не найдена. Попробуйте уточнить параметры запроса.';
-            
             } else {
         
                 $ad = mysqli_fetch_assoc($result);
@@ -52,8 +46,7 @@ if (!$connect){
     
         } else {
             http_response_code(404);
-            $page_content = 'Ошибка 404: страница не найдена. Попробуйте уточнить параметры запроса.';
-    
+            die();
         }
     
     }

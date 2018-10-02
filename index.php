@@ -2,15 +2,9 @@
 require('functions.php'); 
 require ('data.php');
 
-$connect = mysqli_connect("localhost", "root", "", "yeticave");
-mysqli_set_charset($connect, "utf8");
+$connect = db_connect();
  
-if (!$connect){
-    
-    print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
-    die();
-    
-} else {
+if ($connect) {
     
     // Запрашиваем список категорий из базы
     $query = 'SELECT category FROM categories';
