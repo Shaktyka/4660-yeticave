@@ -1,23 +1,15 @@
     <nav class="nav">
       <ul class="nav__list container">
-        <li class="nav__item">
-          <a href="all-lots.html">Доски и лыжи</a>
-        </li>
-        <li class="nav__item">
-          <a href="all-lots.html">Крепления</a>
-        </li>
-        <li class="nav__item">
-          <a href="all-lots.html">Ботинки</a>
-        </li>
-        <li class="nav__item">
-          <a href="all-lots.html">Одежда</a>
-        </li>
-        <li class="nav__item">
-          <a href="all-lots.html">Инструменты</a>
-        </li>
-        <li class="nav__item">
-          <a href="all-lots.html">Разное</a>
-        </li>
+        <?php
+            $cat_count = count($categories);
+            $index = 0;
+        ?>
+        <?php while ($index < $cat_count): ?>
+            <li class="nav__item">
+                <a href="pages/all-lots.html"><?=$categories[$index]['category'];?></a>
+            </li>
+        <?php $index++; ?>
+        <?php endwhile; ?>
       </ul>
     </nav>    
     <section class="lot-item container">

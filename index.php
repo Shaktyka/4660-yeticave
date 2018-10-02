@@ -5,22 +5,9 @@ require ('data.php');
 $connect = db_connect();
  
 if ($connect) {
-    
-    // Запрашиваем список категорий из базы
-    $query = 'SELECT category FROM categories';
-    $result = mysqli_query($connect, $query);
-    
-    if (!$result) {
         
-        $error = mysqli_error($connect);
-        print("Ошибка MySQL: " . $error);
-        die();
-        
-    } else {
-        
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        //print_r($categories);
-    }
+    $categories = get_categories($connect);
+    //print_r($categories);
     
     // Запрашиваем список последних лотов
     $query = 'SELECT l.lot_id, title, start_price, img_path, category, start_date, end_date, 

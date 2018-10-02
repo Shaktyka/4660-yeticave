@@ -24,6 +24,28 @@ function db_connect() {
 };
 
 
+// Получение списка категорий
+function get_categories($connect) {
+    
+    $query = 'SELECT category FROM categories';
+    $result = mysqli_query($connect, $query);
+    
+    if (!$result) {
+        
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+        die();
+        
+    }
+    
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+    return $categories;
+    //print_r($categories);
+    
+};
+
+
 // Подключение шаблонов
 function include_template($name, $data) {
     $name = 'templates/' . $name;

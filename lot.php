@@ -5,9 +5,13 @@ require_once('data.php');
 
 $connect = db_connect();
 
+$lot_id = (int)($_GET['id']);
+
 if ($connect) {
     
-    if (isset($_GET['id']) && $_GET['id'] == true) {
+    $categories = get_categories($connect);
+    
+    if (isset($lot_id)) {
     
         $lot_id = intval($_GET['id']);
         
