@@ -75,44 +75,37 @@ function get_open_lots($connect) {
 
 // Получение данных лота по его id
 function get_lot_data($connect, $lot_id) { 
-    
-    if (isset($lot_id)) {
         
-        $query = 'SELECT l.lot_id, title, category, description, img_path, start_date, end_date, start_price, bet_step, MAX(amount) AS cur_price 
-        FROM lots l
-        JOIN categories c
-        ON l.category_id = c.cat_id
-        JOIN bets b
-        ON l.lot_id = b.lot_id
-        WHERE l.lot_id =' . $lot_id;
+    $query = 'SELECT l.lot_id, title, category, description, img_path, start_date, end_date, start_price, bet_step, MAX(amount) AS cur_price 
+    FROM lots l
+    JOIN categories c
+    ON l.category_id = c.cat_id
+    JOIN bets b
+    ON l.lot_id = b.lot_id
+    WHERE l.lot_id =' . $lot_id;
     
-        $result = mysqli_query($connect, $query);
+    $result = mysqli_query($connect, $query);
     
-        if (!$result) {
+    if (!$result) {
         
-            $error = mysqli_error($connect);
-            print("Ошибка MySQL: " . $error);
-            die();
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+        die();
         
-        } else {
-            
-            $res_count = mysqli_num_rows($result);
-            //print_r($res_count);
-        
-            if ($res_count < 1) {
-                http_response_code(404);
-                die();
-            }
-        
-            $ad = mysqli_fetch_assoc($result);
-            return $ad;
+    } 
+
+    //print_r(mysqli_num_rows($result));
     
-        }
+    $ad = mysqli_fetch_assoc($result);
     
-    } else {
+    if (!$ad['lot_id']) {
+        
         http_response_code(404);
         die();
+        
     }
+    
+    return $ad;
     
 };
 
