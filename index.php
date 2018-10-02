@@ -6,29 +6,10 @@ $connect = db_connect();
  
 if ($connect) {
         
-    $categories = get_categories($connect);
+    $categories = get_categories($connect); // получаем список категорий
     //print_r($categories);
     
-    // Запрашиваем список последних лотов
-    $query = 'SELECT l.lot_id, title, start_price, img_path, category, start_date, end_date, 
-       MAX(amount) as cur_price FROM lots l 
-       JOIN categories ON category_id = cat_id 
-       LEFT JOIN bets b ON l.lot_id = b.lot_id 
-       GROUP BY l.lot_id ORDER BY start_date DESC;';
-    $result = mysqli_query($connect, $query);
-        
-    if (!$result) {
-        
-        $error = mysqli_error($connect);
-        print("Ошибка MySQL: " . $error);
-        die();
-        
-    } else {
-        
-        $adds = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        //print_r($adds);
-        
-    }
+    $adds = get_open_lots($connect); // получаем список объявлений
 }
 
 $page_content = include_template('index.php', ['categories' => $categories, 'adds' => $adds]);
