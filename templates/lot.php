@@ -6,7 +6,7 @@
         ?>
         <?php while ($index < $cat_count): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"><?=$categories[$index]['category'];?></a>
+                <a href="all-lots.html"><?=$categories[$index]['category'];?></a>
             </li>
         <?php $index++; ?>
         <?php endwhile; ?>
