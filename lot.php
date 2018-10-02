@@ -26,6 +26,8 @@ if (!$connect){
         WHERE l.lot_id =' . $lot_id;
     
         $result = mysqli_query($connect, $query);
+        $res_count = mysqli_num_rows($result);
+        //print_r($res_count);
     
         if (!$result) {
         
@@ -33,26 +35,27 @@ if (!$connect){
             print("Ошибка MySQL: " . $error);
             die();
         
-            } else if (!$result) {
-            
+            } else if ($res_count == 0) {
+
+                http_response_code(404);
                 $page_content = 'Ошибка 404: страница не найдена. Попробуйте уточнить параметры запроса.';
             
             } else {
         
                 $ad = mysqli_fetch_assoc($result);
                 $page_content = include_template('lot.php', ['categories' => $categories, 'ad' => $ad]);
+            
+                $layout_content = include_template('layout.php', ['content' => $page_content, 'user_name' => $user_name, 'title' => $title, 'categories' => $categories]);
+
+                print($layout_content);
             }
     
         } else {
-    
+            http_response_code(404);
             $page_content = 'Ошибка 404: страница не найдена. Попробуйте уточнить параметры запроса.';
     
         }
     
     }
-
-$layout_content = include_template('layout.php', ['content' => $page_content, 'user_name' => $user_name, 'title' => $title, 'categories' => $categories]);
-
-print($layout_content);
 
 ?>
