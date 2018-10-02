@@ -9,8 +9,8 @@ CREATE TABLE users (
     email CHAR(128) NOT NULL,
     user_pass CHAR(64) NOT NULL,
     user_name CHAR(128) NOT NULL,
-    contacts CHAR(255) NOT NULL,
-    avatar CHAR(255),
+    contacts CHAR(256) NOT NULL,
+    avatar CHAR(256),
     reg_date DATETIME(0) NOT NULL
 );
 
@@ -20,7 +20,7 @@ CREATE INDEX user_name ON users(user_name);
 
 CREATE TABLE categories (
     cat_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    category CHAR(255)
+    category CHAR(256)
 );
 
 CREATE INDEX category_id ON categories(cat_id);
@@ -28,10 +28,10 @@ CREATE INDEX category_id ON categories(cat_id);
 CREATE TABLE lots (
     lot_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
-    title CHAR(255) NOT NULL,
+    title CHAR(256) NOT NULL,
     category_id INT UNSIGNED NOT NULL,
     description TEXT(1000) NOT NULL,
-    img_path CHAR(255) NOT NULL,
+    img_path CHAR(256) NOT NULL,
     start_date DATETIME(0) NOT NULL,
     start_price INT UNSIGNED NOT NULL,
     end_date DATETIME(0) NOT NULL,

@@ -1,20 +1,112 @@
 <?php
 
-// Форматирование вывода цены
-function format_price ($price) {
-    $symbol = '&#8381;'; // символ рубля
+// Подключение к БД
+function db_connect() {
     
-    $end_price = null;
-    $price = ceil($price);
+    $db_params = [
+        'host' => 'localhost',
+        'user' => 'root',
+        'pass' => '',
+        'database' => 'yeticave'
+    ];
     
-    if ($price > 1000) {
-        $price = number_format($price, 0, '', ' ');
+    $connect = mysqli_connect($db_params['host'], $db_params['user'], $db_params['pass'], $db_params['database']);
+    
+    mysqli_set_charset($connect, 'utf8'); // устанавливаем кодировку
+    
+    if (!$connect) {
+        
+        print('Ошибка: Не удалось подключиться к MySQL ' . mysqli_connect_error());
+        die();
     }
     
-    $end_price = $price . ' ' . $symbol;
-    
-    return $end_price;
+    return $connect;
 };
+
+
+// Получение списка категорий
+function get_categories($connect) {
+    
+    $query = 'SELECT category FROM categories';
+    $result = mysqli_query($connect, $query);
+    
+    if (!$result) {
+        
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+        die();
+        
+    }
+    
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //print_r($categories);
+    
+    return $categories;
+    
+};
+
+
+// Получение списка последних открытых лотов
+function get_open_lots($connect) {
+    
+    $query = 'SELECT l.lot_id, title, start_price, img_path, category, start_date, end_date, bet_step,  
+       MAX(amount) as cur_price FROM lots l 
+       JOIN categories ON category_id = cat_id 
+       LEFT JOIN bets b ON l.lot_id = b.lot_id 
+       GROUP BY l.lot_id ORDER BY start_date DESC;';
+    
+    $result = mysqli_query($connect, $query);
+        
+    if (!$result) {
+        
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+        die();
+        
+    }
+        
+    $adds = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //print_r($adds);
+        
+    return $adds;
+    
+};
+
+
+// Получение данных лота по его id
+function get_lot_data($connect, $lot_id) { 
+        
+    $query = 'SELECT l.lot_id, title, category, description, img_path, start_date, end_date, start_price, bet_step, MAX(amount) AS cur_price 
+    FROM lots l
+    JOIN categories c
+    ON l.category_id = c.cat_id
+    JOIN bets b
+    ON l.lot_id = b.lot_id
+    WHERE l.lot_id =' . $lot_id;
+    
+    $result = mysqli_query($connect, $query);
+    
+    if (!$result) {
+        
+        $error = mysqli_error($connect);
+        print("Ошибка MySQL: " . $error);
+        die();
+        
+    }
+    
+    $ad = mysqli_fetch_assoc($result);
+    
+    if (!$ad['lot_id']) {
+        
+        http_response_code(404);
+        die();
+        
+    }
+    
+    return $ad;
+    
+};
+
 
 // Подключение шаблонов
 function include_template($name, $data) {
@@ -34,7 +126,25 @@ function include_template($name, $data) {
 return $result;
 };
 
-// Вывод оставшегося до полуночи времени (универсально)
+
+// Форматирование вывода цены
+function format_price ($price) {
+    $symbol = '&#8381;'; // символ рубля
+    
+    $end_price = null;
+    $price = ceil($price);
+    
+    if ($price > 1000) {
+        $price = number_format($price, 0, '', ' ');
+    }
+    
+    $end_price = $price . ' ' . $symbol;
+    
+    return $end_price;
+};
+
+
+// Вывод оставшегося до полуночи времени
 function get_time() {
     
     $cur_date = time(); // текущая дата
@@ -45,6 +155,16 @@ function get_time() {
     $date = gmdate('H:i', $delta); // форматируем дату
     
     return $date;
+};
+
+// Форматирование данных
+function check_input($data) {
+    
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = strip_tags($data);
+    return $data;
+    
 };
 
 ?>
