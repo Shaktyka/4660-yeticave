@@ -13,7 +13,7 @@
       </ul>
     </nav>
 <!--  https://echo.htmlacademy.ru  -->
-    <form class="form form--add-lot container form--invalid" action="/add.php" method="post"> <!-- form--invalid -->
+    <form class="form form--add-lot container form--invalid" name="add-lot" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
         <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
