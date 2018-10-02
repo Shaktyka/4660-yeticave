@@ -49,7 +49,7 @@ function get_categories($connect) {
 // Получение списка последних открытых лотов
 function get_open_lots($connect) {
     
-    $query = 'SELECT l.lot_id, title, start_price, img_path, category, start_date, end_date, 
+    $query = 'SELECT l.lot_id, title, start_price, img_path, category, start_date, end_date, bet_step,  
        MAX(amount) as cur_price FROM lots l 
        JOIN categories ON category_id = cat_id 
        LEFT JOIN bets b ON l.lot_id = b.lot_id 
@@ -87,13 +87,6 @@ function get_lot_data($connect, $lot_id) {
         WHERE l.lot_id =' . $lot_id;
     
         $result = mysqli_query($connect, $query);
-        $res_count = mysqli_num_rows($result);
-        //print_r($res_count);
-        
-        if ($res_count < 1) {
-            http_response_code(404);
-            die();
-        }
     
         if (!$result) {
         
@@ -102,6 +95,14 @@ function get_lot_data($connect, $lot_id) {
             die();
         
         } else {
+            
+            $res_count = mysqli_num_rows($result);
+            //print_r($res_count);
+        
+            if ($res_count < 1) {
+                http_response_code(404);
+                die();
+            }
         
             $ad = mysqli_fetch_assoc($result);
             return $ad;
@@ -163,6 +164,16 @@ function get_time() {
     $date = gmdate('H:i', $delta); // форматируем дату
     
     return $date;
+};
+
+// Форматирование данных
+function check_input($data) {
+    
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = strip_tags($data);
+    return $data;
+    
 };
 
 ?>
