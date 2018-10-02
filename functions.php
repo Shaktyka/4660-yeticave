@@ -92,9 +92,7 @@ function get_lot_data($connect, $lot_id) {
         print("Ошибка MySQL: " . $error);
         die();
         
-    } 
-
-    //print_r(mysqli_num_rows($result));
+    }
     
     $ad = mysqli_fetch_assoc($result);
     

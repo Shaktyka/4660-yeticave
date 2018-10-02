@@ -19,7 +19,6 @@ if ($connect) {
     } else {
         
         http_response_code(404); // отправляем заголовок 404
-        //$page_content = 'Ошибка 404';
         die();
         
     }
