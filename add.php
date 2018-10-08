@@ -67,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
         // для всех полей формы, где найдены ошибки:
         // добавить контейнеру с этим полем класс form__item--invalid;
         // в тег span.form__error этого контейнера записать текст ошибки. Например: «Заполните это поле».
-        $page_content = include_template('add.php', ['advert' => $advert, 'errors' => $errors, 'dict' => $dict]);
+        $page_content = include_template('add-lot.php', ['advert' => $advert, 'errors' => $errors, 'dict' => $dict]);
     } else {
 		$page_content = include_template('lot.php', ['advert' => $advert]);
     }
     
 } else {
-	$page_content = include_template('add.php', []);
+	$page_content = include_template('add-lot.php', []);
 }
 
 

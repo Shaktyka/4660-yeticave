@@ -13,10 +13,10 @@
       </ul>
     </nav>
 <!--  https://echo.htmlacademy.ru  -->
-    <form class="form form--add-lot container form--invalid" name="add-lot" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+    <form class="form form--add-lot container" name="add-lot" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
-        <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
+        <div class="form__item"> <!-- form__item--invalid -->
           <label for="lot-name">Наименование</label>
           <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
           <span class="form__error">Введите наименование лота</span>
