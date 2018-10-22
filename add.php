@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
     if (isset($_FILES['file']['name'])) {
 		$tmp_name = $_FILES['file']['tmp_name'];
         $tmp_size = $_FILES['file']['size'];
-		$path = $_FILES['file']['name']; // похоже, ошибка
+		$path = $_FILES['file']['name'];
         
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $tmp_name);
@@ -85,7 +85,19 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
 		$page_content = include_template('lot.php', ['advert' => $advert, 'categories' => $categories]);
     }
     
-    // Если всё ок, то отправляем данные формы и перенаправляем пользователя на страницу просмотра лота, иначе он остаётся на той же странице с заполненными полями и поля с ошибками подсвечены красным 
+    // Если всё ок, то отправляем данные формы и перенаправляем пользователя на страницу просмотра лота, иначе он остаётся на той же странице с заполненными полями и поля с ошибками подсвечены красным
+    
+    $sql = 'INSERT INTO lots (user_id, title, category_id, description, img_path, start_date, start_price, end_date, bet_step) VALUES (1, ?, ?, ?, ?, NOW(), ?, ?, ?)';
+    
+    $stmt = db_get_prepare_stmt($connect, $sql, [$advert['lot-name'], $advert['category'], $advert['message'], $advert['path'], $advert['start-price'], $advert['end_date'], $advert['bet_step']]);
+    $res = mysqli_stmt_execute($stmt);
+    
+    if ($res) {
+        $lot_id = mysqli_insert_id($connect);
+        header("Location: lot.php?id=" . $lot_id);
+    }
+
+print include_template('index.php', ['content' => $content, 'categories' => $categories]);
     
 } else {
     
