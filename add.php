@@ -7,6 +7,7 @@ $connect = db_connect();
 
 if ($connect) {
     $categories = get_categories($connect); // получаем список категорий
+    //print_r($categories);
 }
 
 if ($_SERVER['REQUEST_METHOD' == 'POST']) {
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
     $description = check_input($_POST['message']) ?? '';
     
     $file = $_FILES['file'] ?? '';
+    print_r($_FILES);
     
     $start_price = check_input($_POST['lot-rate']) ?? '';
     $bet_step = check_input($_POST['lot-step']) ?? '';
@@ -39,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
         $errors[$key] = 'Введённое значение должно быть числом';
     }
     
+    // Проверка, что число больше 0
     if ($start_price < 0) {
         $errors[$key] = 'Введённое значение должно быть больше нуля';
     }
@@ -48,10 +51,12 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
         $errors[$key] = 'Введённое значение должно быть числом';
     }
     
+    // Проверка, что число целое
     if (!is_int($bet_step)) {
         $errors[$key] = 'Введённое значение должно быть целым числом';
     }
     
+    // Проверка, что число больше 0
     if ($bet_step < 0) {
         $errors[$key] = 'Введённое значение должно быть больше нуля';
     }
@@ -75,17 +80,17 @@ if ($_SERVER['REQUEST_METHOD' == 'POST']) {
     
     // Если есть ошибки, то отображаем их
     if (count($errors)) {
-        // в тег формы добавить класс form--invalid
-        // для всех полей формы, где найдены ошибки:
-        // добавить контейнеру с этим полем класс form__item--invalid;
-        // в тег span.form__error этого контейнера записать текст ошибки. Например: «Заполните это поле».
-        $page_content = include_template('add-lot.php', ['advert' => $advert, 'errors' => $errors, 'dict' => $dict]);
+        $page_content = include_template('add-lot.php', ['advert' => $advert, 'errors' => $errors, 'dict' => $dict, 'categories' => $categories]);
     } else {
-		$page_content = include_template('lot.php', ['advert' => $advert]);
+		$page_content = include_template('lot.php', ['advert' => $advert, 'categories' => $categories]);
     }
     
+    // Если всё ок, то отправляем данные формы и перенаправляем пользователя на страницу просмотра лота, иначе он остаётся на той же странице с заполненными полями и поля с ошибками подсвечены красным 
+    
 } else {
-	$page_content = include_template('add-lot.php', []);
+    
+	$page_content = include_template('add-lot.php', ['categories' => $categories]);
+    
 }
 
 

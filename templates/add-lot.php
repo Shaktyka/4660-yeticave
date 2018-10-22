@@ -13,15 +13,33 @@
       </ul>
     </nav>
 <!--  https://echo.htmlacademy.ru  -->
-    <form class="form form--add-lot container" name="add-lot" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+<!--
+в тег формы добавить класс form--invalid
+для всех полей формы, где найдены ошибки:
+добавить контейнеру с этим полем класс form__item--invalid;
+в тег span.form__error этого контейнера записать текст ошибки. Например: «Заполните это поле».
+-->
+    <?php 
+      $classname = count($errors) ? "form--invalid" : "";
+      print_r($errors);
+    ?>
+    <form class="form form--add-lot container <?= $classname; ?>" name="add-lot" action="/add.php" method="post" enctype="multipart/form-data">
       <h2>Добавление лота</h2>
       <div class="form__container-two">
-        <div class="form__item"> <!-- form__item--invalid -->
+        <?php 
+          $classname = isset($errors['lot-name']) ? "form__item--invalid" : "";
+          $value = isset($advert['lot-name']) ? $advert['lot-name'] : ""; 
+        ?>
+        <div class="form__item <?= $classname; ?>">
           <label for="lot-name">Наименование</label>
-          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
-          <span class="form__error">Введите наименование лота</span>
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= $value; ?>" required>
+          <span class="form__error"><?= $dict['lot-name']; ?> Введите наименование лота</span>
         </div>
-        <div class="form__item">
+        <?php 
+          $classname = isset($errors['category']) ? "form__item--invalid" : "";
+          $value = isset($advert['category']) ? $advert['category'] : ""; 
+        ?>
+        <div class="form__item <?= $classname; ?>">
           <label for="category">Категория</label>
           <select id="category" name="category" required>
             <option>Выберите категорию</option>
@@ -29,15 +47,23 @@
               <option><?= $cat['category']; ?></option>
             <?php endforeach; ?>
           </select>
-          <span class="form__error">Выберите категорию</span>
+          <span class="form__error"><?= $dict['category']; ?> Выберите категорию</span>
         </div>
       </div>
-      <div class="form__item form__item--wide">
+      <?php 
+          $classname = isset($errors['message']) ? "form__item--invalid" : "";
+          $value = isset($advert['message']) ? $advert['message'] : ""; 
+      ?>
+      <div class="form__item form__item--wide <?= $classname; ?>">
         <label for="message">Описание</label>
-        <textarea id="message" name="message" placeholder="Напишите описание лота" required></textarea>
-        <span class="form__error">Напишите описание лота</span>
+        <textarea id="message" name="message" placeholder="Напишите описание лота" value="<?= $value; ?>" required></textarea>
+        <span class="form__error"><?= $dict['message']; ?> Напишите описание лота</span>
       </div>
-      <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+      <?php 
+          $classname = isset($errors['file']) ? "form__item--invalid" : "";
+          $value = ""; // не очень понятно пока
+      ?>
+      <div class="form__item form__item--file <?= $classname; ?>"> <!-- form__item--uploaded -->
         <label>Изображение</label>
         <div class="preview">
           <button class="preview__remove" type="button">x</button>
@@ -46,28 +72,42 @@
           </div>
         </div>
         <div class="form__input-file">
-          <input class="visually-hidden" name="file" type="file" id="photo2" value="">
+          <input class="visually-hidden" name="file" type="file" id="photo2" value="" accept="image/jpeg,image/jpg,image/png">
           <label for="photo2">
             <span>+ Добавить</span>
           </label>
         </div>
       </div>
+      
       <div class="form__container-three">
-        <div class="form__item form__item--small">
+        <?php 
+          $classname = isset($errors['lot-rate']) ? "form__item--invalid" : "";
+          $value = isset($advert['lot-rate']) ? $advert['lot-rate'] : ""; 
+        ?>
+        <div class="form__item form__item--small <?= $classname; ?>">
           <label for="lot-rate">Начальная цена</label>
-          <input id="lot-rate" type="number" name="lot-rate" placeholder="0" required>
-          <span class="form__error">Введите начальную цену</span>
+          <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= $value; ?>" required>
+          <span class="form__error"><?= $dict['lot-rate']; ?> Введите начальную цену</span>
         </div>
-        <div class="form__item form__item--small">
+        <?php 
+          $classname = isset($errors['lot-step']) ? "form__item--invalid" : "";
+          $value = isset($advert['lot-step']) ? $advert['lot-step'] : ""; 
+        ?>
+        <div class="form__item form__item--small <?= $classname; ?>">
           <label for="lot-step">Шаг ставки</label>
-          <input id="lot-step" type="number" name="lot-step" placeholder="0" required>
-          <span class="form__error">Введите шаг ставки</span>
+          <input id="lot-step" type="number" name="lot-step" placeholder="0" value="<?= $value; ?>" required>
+          <span class="form__error"><?= $dict['lot-step']; ?> Введите шаг ставки</span>
         </div>
-        <div class="form__item">
+        <?php 
+          $classname = isset($errors['lot-date']) ? "form__item--invalid" : "";
+          $value = isset($advert['lot-date']) ? $advert['lot-date'] : ""; 
+        ?>
+        <div class="form__item <?= $classname; ?>">
           <label for="lot-date">Дата окончания торгов</label>
-          <input class="form__input-date" id="lot-date" type="date" name="lot-date" required>
-          <span class="form__error">Введите дату завершения торгов</span>
+          <input class="form__input-date" id="lot-date" type="date" name="lot-date" value="<?= $value; ?>" required>
+          <span class="form__error"><?= $dict['lot-date']; ?> Введите дату завершения торгов</span>
         </div>
+        
       </div>
       <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
       <button type="submit" name="lot-submit" class="button" value="add-lot">Добавить лот</button>
